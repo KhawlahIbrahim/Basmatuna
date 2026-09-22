@@ -1,0 +1,72 @@
+/* ── وضع العرض للشاشات الكبيرة ─────────────────────────────
+   خلفية فاتحة عمدًا: الشعار الرسمي أزرق على خلفية شفافة، ولا يجوز
+   إعادة تلوينه، فالخلفية الفاتحة تحفظ وضوحه دون أي معالجة. */
+
+.display {
+  --u: clamp(12px, 1.05vw, 30px); /* وحدة تتدرج من اللابتوب إلى شاشة 4K */
+  height: 100vh; height: 100dvh; overflow: hidden; cursor: none;
+  background:
+    radial-gradient(60% 70% at 85% 10%, color-mix(in srgb, var(--secondary-color) 10%, transparent), transparent 70%),
+    radial-gradient(55% 60% at 10% 95%, color-mix(in srgb, var(--accent-color) 10%, transparent), transparent 70%),
+    var(--background-color);
+  font-size: var(--u);
+}
+.display.show-cursor { cursor: default; }
+
+.display__field { position: fixed; inset-block: 8vh; inset-inline-start: -6vw; width: 48vw; height: 84vh; opacity: .35; pointer-events: none; }
+
+.display__words { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+.display__words span { position: absolute; font-weight: 700; color: var(--primary-color); opacity: .05; white-space: nowrap; transition: opacity 4s ease, transform 30s linear; }
+
+.display__intro { position: fixed; inset: 0; display: grid; place-content: center; justify-items: center; text-align: center; gap: calc(var(--u) * 1.4); opacity: 0; visibility: hidden; transition: opacity 1.2s var(--ease-out), visibility 1.2s; }
+.display__intro.is-active { opacity: 1; visibility: visible; }
+.display__intro-logo { margin-bottom: calc(var(--u) * 1.5); }
+.display__title { font-size: calc(var(--u) * 5.2); font-weight: 700; line-height: 1.15; }
+.display__tagline { font-size: calc(var(--u) * 1.8); color: var(--muted-color); }
+.display__waiting { margin-top: calc(var(--u) * 2); font-size: calc(var(--u) * 1.3); color: var(--primary-strong); }
+
+.display__top { position: fixed; top: 0; inset-inline: 0; display: flex; justify-content: space-between; align-items: center; padding: calc(var(--u) * 1.6) calc(var(--u) * 3); opacity: 0; transition: opacity 1s; }
+.display__top.is-visible { opacity: 1; }
+.display__top-logo { width: calc(var(--u) * 13); }
+.display__count { font-size: calc(var(--u) * 1.2); color: var(--muted-color); }
+.display__count b { color: var(--primary-strong); font-size: 1.5em; font-variant-numeric: tabular-nums; }
+
+.display__stage { position: fixed; inset: calc(var(--u) * 7) calc(var(--u) * 3) calc(var(--u) * 5); display: grid; place-items: center; }
+
+.d-card { position: absolute; width: min(78vw, calc(var(--u) * 58)); background: var(--surface-color); border: 1px solid var(--border-color); border-radius: calc(var(--u) * 1.6); padding: calc(var(--u) * 3) calc(var(--u) * 3.6) calc(var(--u) * 2.6); box-shadow: 0 calc(var(--u) * 2) calc(var(--u) * 5) calc(var(--u) * -2) rgba(22, 28, 71, .28); text-align: center; overflow: hidden;
+  opacity: 0; transform: translateX(calc(var(--u) * -2.5)) scale(.985); transition: opacity 1s var(--ease-out), transform 1.1s var(--ease-out); }
+.d-card::after { content: ""; position: absolute; inset-inline: 0; bottom: 0; height: calc(var(--u) * .3); background: var(--brand-gradient); }
+.d-card.is-in { opacity: 1; transform: none; }
+.d-card.is-out { opacity: 0; transform: translateX(calc(var(--u) * 2.5)) scale(.985); }
+.d-card__flag { font-size: calc(var(--u) * 2.2); line-height: 1; }
+.d-card__kicker { margin-top: calc(var(--u) * .8); display: inline-block; font-size: calc(var(--u) * 1); font-weight: 600; color: var(--national-green); background: var(--national-soft); padding: calc(var(--u) * .25) calc(var(--u) * 1); border-radius: 999px; }
+.d-card__person { display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 1.1); margin-top: calc(var(--u) * 1.8); }
+.d-card__avatar { width: calc(var(--u) * 4.4); height: calc(var(--u) * 4.4); border-radius: 50%; overflow: hidden; background: var(--primary-soft); color: var(--primary-strong); display: grid; place-items: center; font-weight: 700; font-size: calc(var(--u) * 1.5); flex: none; }
+.d-card__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.d-card__name { font-size: calc(var(--u) * 2.4); font-weight: 700; line-height: 1.25; text-align: start; }
+.d-card__dept { font-size: calc(var(--u) * 1.25); color: var(--muted-color); text-align: start; }
+.d-card__word { margin-top: calc(var(--u) * 1.8); font-size: calc(var(--u) * 1.5); font-weight: 700; color: var(--primary-color); }
+.d-card__msg { margin-top: calc(var(--u) * .6); font-size: calc(var(--u) * 2.35); line-height: 1.7; font-weight: 500; text-wrap: balance; }
+.d-card__sign { margin-top: calc(var(--u) * 1.8); font-size: calc(var(--u) * 1); color: var(--muted-color); }
+
+.d-interlude { text-align: center; }
+.d-interlude h2 { font-size: calc(var(--u) * 3); margin-bottom: calc(var(--u) * 1.5); }
+.d-interlude .cloud { gap: calc(var(--u) * .5) calc(var(--u) * 2); }
+.d-interlude .cloud span { font-weight: 700; }
+.d-interlude .w1 { font-size: calc(var(--u) * 1.6); color: var(--muted-color); }
+.d-interlude .w2 { font-size: calc(var(--u) * 2.2); color: var(--accent-strong); }
+.d-interlude .w3 { font-size: calc(var(--u) * 3); color: var(--primary-color); }
+.d-interlude .w4 { font-size: calc(var(--u) * 3.8); color: var(--national-green); }
+.d-interlude .w5 { font-size: calc(var(--u) * 4.8); color: var(--primary-strong); }
+
+.display__bottom { position: fixed; bottom: 0; inset-inline: 0; display: flex; justify-content: space-between; gap: 2rem; padding: calc(var(--u) * 1.4) calc(var(--u) * 3); font-size: calc(var(--u) * 1); color: var(--muted-color); }
+.display__bottom b { color: var(--text-color); font-weight: 600; }
+
+.display__controls { position: fixed; bottom: calc(var(--u) * 4); left: 50%; translate: -50% 0; display: flex; align-items: center; gap: .5rem; padding: .6rem .9rem; background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 999px; box-shadow: var(--shadow-lg); font-size: 15px; opacity: 0; pointer-events: none; transition: opacity .3s; z-index: 10; }
+.display.show-cursor .display__controls { opacity: 1; pointer-events: auto; }
+
+@media (max-width: 700px) {
+  .display { --u: 11px; }
+  .display__bottom { flex-direction: column; gap: .3rem; align-items: center; text-align: center; }
+  .display__controls { flex-wrap: wrap; justify-content: center; width: calc(100vw - 2rem); border-radius: 18px; }
+}

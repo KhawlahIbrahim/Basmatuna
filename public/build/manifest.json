@@ -1,0 +1,151 @@
+{
+  "_field-BExs5Bjc.js": {
+    "file": "assets/field-BExs5Bjc.js",
+    "name": "field",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-400-normal.woff": {
+    "file": "assets/ibm-plex-sans-arabic-arabic-400-normal-EA1o-u_Q.woff",
+    "src": "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-400-normal.woff"
+  },
+  "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-400-normal.woff2": {
+    "file": "assets/ibm-plex-sans-arabic-arabic-400-normal-CyU-ddYS.woff2",
+    "src": "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-400-normal.woff2"
+  },
+  "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-500-normal.woff": {
+    "file": "assets/ibm-plex-sans-arabic-arabic-500-normal-DPXcppbm.woff",
+    "src": "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-500-normal.woff"
+  },
+  "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-500-normal.woff2": {
+    "file": "assets/ibm-plex-sans-arabic-arabic-500-normal-C4MQITzh.woff2",
+    "src": "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-500-normal.woff2"
+  },
+  "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-600-normal.woff": {
+    "file": "assets/ibm-plex-sans-arabic-arabic-600-normal-MJZ0liF5.woff",
+    "src": "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-600-normal.woff"
+  },
+  "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-600-normal.woff2": {
+    "file": "assets/ibm-plex-sans-arabic-arabic-600-normal-0pRdybE_.woff2",
+    "src": "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-600-normal.woff2"
+  },
+  "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-700-normal.woff": {
+    "file": "assets/ibm-plex-sans-arabic-arabic-700-normal-9rXc6cUL.woff",
+    "src": "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-700-normal.woff"
+  },
+  "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-700-normal.woff2": {
+    "file": "assets/ibm-plex-sans-arabic-arabic-700-normal-DrtBj6UE.woff2",
+    "src": "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-arabic-700-normal.woff2"
+  },
+  "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-latin-400-normal.woff": {
+    "file": "assets/ibm-plex-sans-arabic-latin-400-normal-CFZh1unN.woff",
+    "src": "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-latin-400-normal.woff2": {
+    "file": "assets/ibm-plex-sans-arabic-latin-400-normal-Bo5KPYvw.woff2",
+    "src": "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-latin-600-normal.woff": {
+    "file": "assets/ibm-plex-sans-arabic-latin-600-normal-Dk5eISD_.woff",
+    "src": "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-latin-600-normal.woff"
+  },
+  "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-latin-600-normal.woff2": {
+    "file": "assets/ibm-plex-sans-arabic-latin-600-normal-KrqB56Mw.woff2",
+    "src": "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-latin-600-normal.woff2"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-BHPev9Df.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "assets": [
+      "assets/ibm-plex-sans-arabic-arabic-400-normal-CyU-ddYS.woff2",
+      "assets/ibm-plex-sans-arabic-arabic-400-normal-EA1o-u_Q.woff",
+      "assets/ibm-plex-sans-arabic-arabic-500-normal-C4MQITzh.woff2",
+      "assets/ibm-plex-sans-arabic-arabic-500-normal-DPXcppbm.woff",
+      "assets/ibm-plex-sans-arabic-arabic-600-normal-0pRdybE_.woff2",
+      "assets/ibm-plex-sans-arabic-arabic-600-normal-MJZ0liF5.woff",
+      "assets/ibm-plex-sans-arabic-arabic-700-normal-DrtBj6UE.woff2",
+      "assets/ibm-plex-sans-arabic-arabic-700-normal-9rXc6cUL.woff",
+      "assets/ibm-plex-sans-arabic-latin-400-normal-Bo5KPYvw.woff2",
+      "assets/ibm-plex-sans-arabic-latin-400-normal-CFZh1unN.woff",
+      "assets/ibm-plex-sans-arabic-latin-600-normal-KrqB56Mw.woff2",
+      "assets/ibm-plex-sans-arabic-latin-600-normal-Dk5eISD_.woff"
+    ]
+  },
+  "resources/css/display.css": {
+    "file": "assets/display-5_sKCz1h.css",
+    "name": "display",
+    "names": [
+      "display.css"
+    ],
+    "src": "resources/css/display.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-sWMfbrjH.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/pages/home.js",
+      "resources/js/pages/participate.js",
+      "resources/js/pages/success.js",
+      "resources/js/pages/explore.js",
+      "resources/js/pages/display.js",
+      "resources/js/pages/admin.js"
+    ]
+  },
+  "resources/js/pages/admin.js": {
+    "file": "assets/admin-CM8wO7r3.js",
+    "name": "admin",
+    "src": "resources/js/pages/admin.js",
+    "isDynamicEntry": true
+  },
+  "resources/js/pages/display.js": {
+    "file": "assets/display-6f_-wAJ_.js",
+    "name": "display",
+    "src": "resources/js/pages/display.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_field-BExs5Bjc.js"
+    ]
+  },
+  "resources/js/pages/explore.js": {
+    "file": "assets/explore-C5KUbxgJ.js",
+    "name": "explore",
+    "src": "resources/js/pages/explore.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "resources/js/pages/home.js": {
+    "file": "assets/home-B52um_ga.js",
+    "name": "home",
+    "src": "resources/js/pages/home.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_field-BExs5Bjc.js"
+    ]
+  },
+  "resources/js/pages/participate.js": {
+    "file": "assets/participate-ShUEiohp.js",
+    "name": "participate",
+    "src": "resources/js/pages/participate.js",
+    "isDynamicEntry": true
+  },
+  "resources/js/pages/success.js": {
+    "file": "assets/success-BzYuXoJ5.js",
+    "name": "success",
+    "src": "resources/js/pages/success.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ]
+  }
+}
