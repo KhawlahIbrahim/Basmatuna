@@ -10,7 +10,7 @@
       <p class="lead">{{ config('basmah.tagline') }}</p>
 
       <div class="hero__actions">
-        <a href="{{ route('participate') }}" class="btn btn-primary btn-lg">أضف بصمتك 🇸🇦</a>
+        <a href="{{ route('participate') }}" class="btn btn-primary btn-lg">أضف بصمتك</a>
         <a href="{{ route('explore') }}" class="btn btn-outline btn-lg">استكشف بصمات المنسوبين والطلبة</a>
       </div>
 

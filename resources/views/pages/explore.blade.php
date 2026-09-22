@@ -5,7 +5,7 @@
 @section('content')
 <section class="section pt-10 pb-12" aria-labelledby="explore-title">
   <div class="container-x">
-    <h1 id="explore-title" class="h-section">بصمات منسوبي الكلية والطلبة 🇸🇦</h1>
+    <h1 id="explore-title" class="h-section">بصمات منسوبي الكلية والطلبة</h1>
     <div class="count-hero">
       <span class="count-hero__num" data-count="{{ $stats['participants'] }}">{{ number_format($stats['participants']) }}</span>
       <span class="count-hero__label">{{ $stats['participants'] === 1 ? 'شخص ترك بصمته' : 'شخصًا تركوا بصمتهم' }}</span>
@@ -19,7 +19,7 @@
       <x-mark :size="64" class="mx-auto mb-4" />
       <p class="text-xl font-semibold mb-2">اللوحة بانتظار أولى البصمات</p>
       <p class="text-muted mb-6">كن أول من يترك كلمته فيها.</p>
-      <a href="{{ route('participate') }}" class="btn btn-primary">أضف بصمتك 🇸🇦</a>
+      <a href="{{ route('participate') }}" class="btn btn-primary">أضف بصمتك</a>
     </div>
   </section>
 @else

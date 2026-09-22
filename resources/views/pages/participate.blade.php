@@ -8,7 +8,7 @@
     <div class="flex items-center gap-4 mb-8">
       <x-mark :size="46" :draw="true" />
       <div>
-        <h1 id="form-title" class="text-[length:var(--fs-3xl)] font-bold">اترك بصمتك 🇸🇦</h1>
+        <h1 id="form-title" class="text-[length:var(--fs-3xl)] font-bold">اترك بصمتك</h1>
         <p class="text-muted">دقيقة واحدة، وتصبح كلمتك جزءًا من لوحة الكلية.</p>
       </div>
     </div>
@@ -140,7 +140,7 @@
 
         <button type="submit" class="btn btn-primary btn-lg w-full mt-8" data-submit>
           <span class="spinner" aria-hidden="true"></span>
-          <span data-submit-label>أرسل بصمتك 🇸🇦</span>
+          <span data-submit-label>أرسل بصمتك</span>
         </button>
       </form>
     @endunless

@@ -38,7 +38,6 @@
 .d-card::after { content: ""; position: absolute; inset-inline: 0; bottom: 0; height: calc(var(--u) * .3); background: var(--brand-gradient); }
 .d-card.is-in { opacity: 1; transform: none; }
 .d-card.is-out { opacity: 0; transform: translateX(calc(var(--u) * 2.5)) scale(.985); }
-.d-card__flag { font-size: calc(var(--u) * 2.2); line-height: 1; }
 .d-card__kicker { margin-top: calc(var(--u) * .8); display: inline-block; font-size: calc(var(--u) * 1); font-weight: 600; color: var(--national-green); background: var(--national-soft); padding: calc(var(--u) * .25) calc(var(--u) * 1); border-radius: 999px; }
 .d-card__person { display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 1.1); margin-top: calc(var(--u) * 1.8); }
 .d-card__avatar { width: calc(var(--u) * 4.4); height: calc(var(--u) * 4.4); border-radius: 50%; overflow: hidden; background: var(--primary-soft); color: var(--primary-strong); display: grid; place-items: center; font-weight: 700; font-size: calc(var(--u) * 1.5); flex: none; }

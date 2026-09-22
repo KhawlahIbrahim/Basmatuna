@@ -120,7 +120,6 @@ export default function () {
 
   function buildCard(p) {
     const card = make('article', 'd-card');
-    card.append(make('p', 'd-card__flag', '🇸🇦'));
     card.append(make('p', 'd-card__kicker', p.recent ? 'بصمة جديدة' : 'بصمة منسوب'));
 
     const person = make('div', 'd-card__person');

@@ -6,7 +6,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@hasSection('title')@yield('title') | @endif{{ config('basmah.title') }}</title>
   <meta name="description" content="{{ config('basmah.tagline') }} مبادرة {{ config('basmah.college') }} في {{ config('basmah.university') }} بمناسبة {{ config('basmah.occasion') }}.">
-  <meta property="og:title" content="{{ config('basmah.title') }} 🇸🇦">
+  <meta property="og:title" content="{{ config('basmah.title') }}">
   <meta property="og:description" content="{{ config('basmah.tagline') }}">
   <meta property="og:image" content="{{ asset('assets/images/og-image.png') }}">
   <meta property="og:locale" content="ar_SA">

@@ -21,7 +21,7 @@
   {{-- المقدمة: الشعار ثم العنوان --}}
   <section class="display__intro is-active" data-intro aria-label="{{ config('basmah.title') }}">
     <x-logo variant="display" eager class="display__intro-logo" />
-    <h1 class="display__title">بصمتنا.. في وطننا 🇸🇦</h1>
+    <h1 class="display__title">بصمتنا.. في وطننا</h1>
     <p class="display__tagline">{{ config('basmah.tagline') }}</p>
     <p class="display__waiting" data-waiting hidden>اللوحة بانتظار أولى البصمات. شارك الآن عبر الرابط أدناه.</p>
   </section>

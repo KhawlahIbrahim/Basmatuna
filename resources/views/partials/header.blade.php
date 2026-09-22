@@ -12,7 +12,7 @@
       <a href="{{ route('home') }}" @if(request()->routeIs('home')) aria-current="page" @endif>الرئيسية</a>
       <a href="{{ route('explore') }}" @if(request()->routeIs('explore')) aria-current="page" @endif>بصمات المنسوبين والطلبة</a>
       @unless(request()->routeIs('participate*'))
-        <a href="{{ route('participate') }}" class="btn btn-primary btn-sm">أضف بصمتك 🇸🇦</a>
+        <a href="{{ route('participate') }}" class="btn btn-primary btn-sm">أضف بصمتك</a>
       @endunless
     </nav>
   </div>

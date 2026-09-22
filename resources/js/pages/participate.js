@@ -142,6 +142,6 @@ export default function () {
     submit.disabled = false;
     submit.classList.remove('is-loading');
     submit.removeAttribute('aria-busy');
-    label.textContent = 'أرسل بصمتك 🇸🇦';
+    label.textContent = 'أرسل بصمتك';
   });
 }
