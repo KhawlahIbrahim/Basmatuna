@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Participation;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use RuntimeException;
@@ -23,6 +24,8 @@ class ImageProcessor
         ini_set('memory_limit', '256M');
 
         if (! extension_loaded('gd')) {
+            Log::warning('ImageProcessor: GD extension missing');
+
             throw new RuntimeException('GD extension is required.');
         }
 
@@ -30,14 +33,30 @@ class ImageProcessor
         $info = $bytes !== false ? @getimagesizefromstring($bytes) : false;
 
         if (! $info || ! in_array($info[2], self::ALLOWED, true)) {
+            Log::warning('ImageProcessor: unsupported image', [
+                'size_bytes' => $file->getSize(),
+                'detected_type' => $info[2] ?? null,
+                'dimensions' => $info ? "{$info[0]}x{$info[1]}" : null,
+            ]);
+
             throw new RuntimeException('Unsupported image.');
         }
         if ($info[0] * $info[1] > 40_000_000) { // حماية من صور ضخمة تستهلك الذاكرة
+            Log::warning('ImageProcessor: image too large', [
+                'dimensions' => "{$info[0]}x{$info[1]}",
+                'pixels' => $info[0] * $info[1],
+            ]);
+
             throw new RuntimeException('Image too large.');
         }
 
         $src = @imagecreatefromstring($bytes);
         if (! $src) {
+            Log::warning('ImageProcessor: corrupted image', [
+                'size_bytes' => $file->getSize(),
+                'dimensions' => "{$info[0]}x{$info[1]}",
+            ]);
+
             throw new RuntimeException('Corrupted image.');
         }
 

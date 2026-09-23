@@ -29,7 +29,15 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('participate', function (Request $request) {
             return [
                 Limit::perMinutes(10, 3)->by('s:'.$request->session()->getId())
-                    ->response(fn () => back()->withInput()->withErrors(['form' => 'أرسلت عدة مشاركات خلال وقت قصير. حاول بعد دقائق.'])),
+                    ->response(function (Request $request) {
+                        $message = 'أرسلت عدة مشاركات خلال وقت قصير. حاول بعد دقائق.';
+
+                        if ($request->wantsJson()) {
+                            return response()->json(['message' => $message], 429);
+                        }
+
+                        return back()->withInput()->withErrors(['form' => $message]);
+                    }),
                 Limit::perMinute(40)->by('ip:'.$request->ip()),
             ];
         });

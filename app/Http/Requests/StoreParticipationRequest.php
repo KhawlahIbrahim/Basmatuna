@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
 class StoreParticipationRequest extends FormRequest
@@ -89,6 +91,22 @@ class StoreParticipationRequest extends FormRequest
             'consent.accepted' => 'يلزم الموافقة على عرض مشاركتك قبل الإرسال.',
             'website.max' => 'تعذّر إرسال النموذج.',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        if ($validator->errors()->has('photo') && ($file = $this->file('photo'))) {
+            Log::warning('Participation photo failed validation', [
+                'size' => $file->getSize(),
+                'mime_type' => rescue(fn () => $file->getMimeType(), null, report: false),
+                'client_mime_type' => $file->getClientMimeType(),
+                'error' => $file->getError(),
+                'upload_max_filesize' => ini_get('upload_max_filesize'),
+                'post_max_size' => ini_get('post_max_size'),
+            ]);
+        }
+
+        parent::failedValidation($validator);
     }
 
     /** الكلمة النهائية التي تُحفظ */

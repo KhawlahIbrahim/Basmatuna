@@ -46,7 +46,7 @@ export default function () {
   msg.addEventListener('input', count);
   count();
 
-  // الصورة: تجهيز (تصغير + تحويل JPEG) في المتصفح ثم معاينة
+  // الصورة: تجهيز (تصغير + تحويل JPEG) في المتصفح، تُحفظ كـ Blob لإرسالها لاحقًا
   const photo = form.querySelector('#photo');
   const preview = form.querySelector('[data-photo-preview]');
   const placeholder = preview.innerHTML;
@@ -54,9 +54,11 @@ export default function () {
   const photoConsent = form.querySelector('[data-photo-consent]');
   const processing = form.querySelector('[data-photo-processing]');
   let objectUrl = null;
+  let compressedPhoto = null;
 
   const resetPhoto = () => {
     photo.value = '';
+    compressedPhoto = null;
     if (objectUrl) URL.revokeObjectURL(objectUrl);
     objectUrl = null;
     preview.innerHTML = placeholder;
@@ -110,9 +112,7 @@ export default function () {
       const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', JPEG_QUALITY));
       if (!blob) throw new Error('encode-failed');
 
-      const dt = new DataTransfer();
-      dt.items.add(new File([blob], 'photo.jpg', { type: 'image/jpeg' }));
-      photo.files = dt.files;
+      compressedPhoto = blob;
 
       if (objectUrl) URL.revokeObjectURL(objectUrl);
       objectUrl = URL.createObjectURL(blob);
@@ -142,6 +142,35 @@ export default function () {
     }
   }
 
+  function buildErrorSummary(messages) {
+    let box = document.querySelector('[data-error-summary]');
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'alert alert-danger mb-6';
+      box.setAttribute('role', 'alert');
+      box.setAttribute('tabindex', '-1');
+      box.setAttribute('data-error-summary', '');
+      const title = document.createElement('p');
+      title.className = 'font-semibold mb-1';
+      title.textContent = 'راجع الحقول التالية:';
+      const list = document.createElement('ul');
+      list.className = 'list-disc ps-5';
+      box.append(title, list);
+      form.parentNode.insertBefore(box, form);
+    }
+    const list = box.querySelector('ul');
+    list.replaceChildren(...messages.map((m) => {
+      const li = document.createElement('li');
+      li.textContent = m;
+      return li;
+    }));
+    box.focus();
+  }
+
+  function removeErrorSummary() {
+    document.querySelector('[data-error-summary]')?.remove();
+  }
+
   function validate() {
     const errors = {};
     const name = form.full_name.value.trim();
@@ -168,28 +197,97 @@ export default function () {
   const submit = form.querySelector('[data-submit]');
   const label = form.querySelector('[data-submit-label]');
 
-  form.addEventListener('submit', (e) => {
-    if (submit.disabled) { e.preventDefault(); return; }
-    const errors = validate();
-    ['full_name', 'audience_type', 'department', 'selected_word', 'message', 'consent'].forEach((n) => setError(n, errors[n] || ''));
-    const first = Object.keys(errors)[0];
-    if (first) {
-      e.preventDefault();
-      const target = ['selected_word', 'audience_type'].includes(first) ? form.querySelector(`input[name="${first}"]`) : form.querySelector(`[name="${first}"]`);
-      target?.focus();
-      return;
-    }
+  function startSubmitting() {
     submit.disabled = true;
     submit.classList.add('is-loading');
     submit.setAttribute('aria-busy', 'true');
     label.textContent = 'جارٍ إرسال بصمتك...';
-  });
+  }
 
-  // عند الرجوع بزر المتصفح بعد الإرسال
-  window.addEventListener('pageshow', () => {
+  function stopSubmitting() {
     submit.disabled = false;
     submit.classList.remove('is-loading');
     submit.removeAttribute('aria-busy');
     label.textContent = 'أرسل بصمتك';
+  }
+
+  const FIELD_NAMES = ['full_name', 'audience_type', 'department', 'selected_word', 'message', 'consent', 'photo'];
+
+  async function submitViaFetch() {
+    const formData = new FormData(form);
+    formData.delete('photo');
+    if (compressedPhoto) formData.append('photo', compressedPhoto, 'photo.jpg');
+
+    startSubmitting();
+
+    let response;
+    try {
+      response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'X-Requested-With': 'XMLHttpRequest', Accept: 'application/json' },
+      });
+    } catch {
+      stopSubmitting();
+      buildErrorSummary(['تعذّر الإرسال. تحقق من الاتصال وحاول مرة أخرى.']);
+      return;
+    }
+
+    if (response.ok) {
+      let data = {};
+      try { data = await response.json(); } catch { /* تجاهل */ }
+      removeErrorSummary();
+      window.location.href = data.redirect || form.action;
+      return;
+    }
+
+    stopSubmitting();
+
+    if (response.status === 422) {
+      let data = {};
+      try { data = await response.json(); } catch { /* تجاهل */ }
+      const errors = data.errors || {};
+      FIELD_NAMES.forEach((n) => setError(n, ''));
+      Object.entries(errors).forEach(([field, messages]) => setError(field, messages[0]));
+      const allMessages = Object.values(errors).map((messages) => messages[0]);
+      if (allMessages.length) buildErrorSummary(allMessages);
+      const firstField = Object.keys(errors)[0];
+      const target = firstField
+        ? (['selected_word', 'audience_type'].includes(firstField) ? form.querySelector(`input[name="${firstField}"]`) : form.querySelector(`[name="${firstField}"]`))
+        : null;
+      target?.focus();
+      return;
+    }
+
+    if (response.status === 419) {
+      buildErrorSummary(['انتهت صلاحية الصفحة. حدّث الصفحة وأعد المحاولة.']);
+      return;
+    }
+
+    if (response.status === 429) {
+      let data = {};
+      try { data = await response.json(); } catch { /* تجاهل */ }
+      buildErrorSummary([data.message || 'أرسلت عدة مشاركات خلال وقت قصير. حاول بعد دقائق.']);
+      return;
+    }
+
+    buildErrorSummary(['تعذّر الإرسال. تحقق من الاتصال وحاول مرة أخرى.']);
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (submit.disabled) return;
+    const errors = validate();
+    ['full_name', 'audience_type', 'department', 'selected_word', 'message', 'consent'].forEach((n) => setError(n, errors[n] || ''));
+    const first = Object.keys(errors)[0];
+    if (first) {
+      const target = ['selected_word', 'audience_type'].includes(first) ? form.querySelector(`input[name="${first}"]`) : form.querySelector(`[name="${first}"]`);
+      target?.focus();
+      return;
+    }
+    submitViaFetch();
   });
+
+  // عند الرجوع بزر المتصفح بعد الإرسال
+  window.addEventListener('pageshow', stopSubmitting);
 }

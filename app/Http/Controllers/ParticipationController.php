@@ -6,6 +6,7 @@ use App\Enums\ParticipationStatus;
 use App\Http\Requests\StoreParticipationRequest;
 use App\Models\Participation;
 use App\Services\ImageProcessor;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -25,7 +26,7 @@ class ParticipationController extends Controller
         ]);
     }
 
-    public function store(StoreParticipationRequest $request, ImageProcessor $images): RedirectResponse
+    public function store(StoreParticipationRequest $request, ImageProcessor $images): RedirectResponse|JsonResponse
     {
         $imagePath = null;
 
@@ -33,9 +34,19 @@ class ParticipationController extends Controller
             try {
                 $imagePath = $images->store($request->file('photo'));
             } catch (\Throwable $e) {
-                Log::warning('Participation photo rejected', ['reason' => $e->getMessage()]);
+                Log::warning('Participation photo rejected', [
+                    'reason' => $e->getMessage(),
+                    'size' => $request->file('photo')->getSize(),
+                    'client_mime' => $request->file('photo')->getClientMimeType(),
+                ]);
 
-                return back()->withInput()->withErrors(['photo' => 'تعذّر رفع الصورة. جرّب صورة أخرى.']);
+                $message = 'تعذّر رفع الصورة. جرّب صورة أخرى.';
+
+                if ($request->wantsJson()) {
+                    return response()->json(['message' => $message, 'errors' => ['photo' => [$message]]], 422);
+                }
+
+                return back()->withInput()->withErrors(['photo' => $message]);
             }
         }
 
@@ -55,6 +66,10 @@ class ParticipationController extends Controller
 
         $request->session()->put(self::SESSION_KEY, $participation->id);
         $request->session()->regenerateToken(); // يمنع إعادة الإرسال المكرر بنفس النموذج
+
+        if ($request->wantsJson()) {
+            return response()->json(['redirect' => route('participate.success')]);
+        }
 
         return redirect()->route('participate.success');
     }
