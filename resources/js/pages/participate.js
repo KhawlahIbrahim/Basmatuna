@@ -1,6 +1,3 @@
-const MAX_SIDE = 1200;
-const JPEG_QUALITY = 0.85;
-
 export default function () {
   const form = document.querySelector('[data-participate-form]');
   if (!form) return;
@@ -45,91 +42,6 @@ export default function () {
   };
   msg.addEventListener('input', count);
   count();
-
-  // الصورة: تجهيز (تصغير + تحويل JPEG) في المتصفح، تُحفظ كـ Blob لإرسالها لاحقًا
-  const photo = form.querySelector('#photo');
-  const preview = form.querySelector('[data-photo-preview]');
-  const placeholder = preview.innerHTML;
-  const clear = form.querySelector('[data-photo-clear]');
-  const photoConsent = form.querySelector('[data-photo-consent]');
-  const processing = form.querySelector('[data-photo-processing]');
-  let objectUrl = null;
-  let compressedPhoto = null;
-
-  const resetPhoto = () => {
-    photo.value = '';
-    compressedPhoto = null;
-    if (objectUrl) URL.revokeObjectURL(objectUrl);
-    objectUrl = null;
-    preview.innerHTML = placeholder;
-    clear.hidden = true;
-    photoConsent.hidden = true;
-    photoConsent.querySelector('input').checked = false;
-  };
-
-  async function decodeImage(file) {
-    if ('createImageBitmap' in window) {
-      try {
-        return await createImageBitmap(file, { imageOrientation: 'from-image' });
-      } catch {
-        // نكمل للخيار البديل
-      }
-    }
-    return await new Promise((resolve, reject) => {
-      const url = URL.createObjectURL(file);
-      const img = new Image();
-      img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
-      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('decode-failed')); };
-      img.src = url;
-    });
-  }
-
-  function setPhotoProcessing(on) {
-    processing.hidden = !on;
-    submit.disabled = on;
-  }
-
-  photo.addEventListener('change', async () => {
-    setError('photo', '');
-    const file = photo.files[0];
-    if (!file) return resetPhoto();
-
-    setPhotoProcessing(true);
-    try {
-      const source = await decodeImage(file);
-      const srcW = source.width || source.naturalWidth;
-      const srcH = source.height || source.naturalHeight;
-      const scale = Math.min(1, MAX_SIDE / Math.max(srcW, srcH));
-      const w = Math.max(1, Math.round(srcW * scale));
-      const h = Math.max(1, Math.round(srcH * scale));
-
-      const canvas = document.createElement('canvas');
-      canvas.width = w;
-      canvas.height = h;
-      canvas.getContext('2d').drawImage(source, 0, 0, w, h);
-      if (source.close) source.close();
-
-      const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', JPEG_QUALITY));
-      if (!blob) throw new Error('encode-failed');
-
-      compressedPhoto = blob;
-
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
-      objectUrl = URL.createObjectURL(blob);
-      const img = new Image();
-      img.alt = 'معاينة الصورة';
-      img.src = objectUrl;
-      preview.replaceChildren(img);
-      clear.hidden = false;
-      photoConsent.hidden = false;
-    } catch {
-      resetPhoto();
-      setError('photo', 'تعذّر فتح هذه الصورة. جرّب صورة أخرى أو التقط صورة جديدة.');
-    } finally {
-      setPhotoProcessing(false);
-    }
-  });
-  clear.addEventListener('click', resetPhoto);
 
   // التحقق قبل الإرسال
   function setError(name, text) {
@@ -211,12 +123,10 @@ export default function () {
     label.textContent = 'أرسل بصمتك';
   }
 
-  const FIELD_NAMES = ['full_name', 'audience_type', 'department', 'selected_word', 'message', 'consent', 'photo'];
+  const FIELD_NAMES = ['full_name', 'audience_type', 'department', 'selected_word', 'message', 'consent'];
 
   async function submitViaFetch() {
     const formData = new FormData(form);
-    formData.delete('photo');
-    if (compressedPhoto) formData.append('photo', compressedPhoto, 'photo.jpg');
 
     startSubmitting();
 

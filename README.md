@@ -10,8 +10,7 @@ Laravel 13 · Blade · MySQL · Tailwind CSS 4 · JavaScript (بدون مكتب�
 ## 1. المعمارية باختصار
 
 ```
-الزائر (QR) ─► /participate ─► StoreParticipationRequest (تحقق + تنظيف)
-                               └► ImageProcessor (إعادة ترميز الصورة) ─► participations (status = pending)
+الزائر (QR) ─► /participate ─► StoreParticipationRequest (تحقق + تنظيف) ─► participations (status = pending)
 المسؤول ─► /admin ─► اعتماد / إخفاء / حذف / تصدير CSV
 approved ─► /explore (بطاقات + سحابة + أرقام) و /display/feed ─► /display (الشاشات)
 ```
@@ -20,7 +19,7 @@ approved ─► /explore (بطاقات + سحابة + أرقام) و /display/fe
 |---|---|
 | الإعدادات | `config/basmah.php` (الكلمات، الأقسام، النصوص، مدد العرض) |
 | البيانات | `database/migrations/*participations*`، `app/Models/Participation.php`، `app/Enums/ParticipationStatus.php` |
-| المنطق | `app/Services/StatsService.php` (إحصائيات حيّة مع ذاكرة مؤقتة)، `app/Services/ImageProcessor.php` |
+| المنطق | `app/Services/StatsService.php` (إحصائيات حيّة مع ذاكرة مؤقتة) |
 | المتحكمات | `app/Http/Controllers/*` و `Admin/*` |
 | الحماية | `EnsureAdmin`، `SecurityHeaders`، محددات المعدل في `AppServiceProvider` |
 | الواجهات | `resources/views/{layouts,partials,components,pages,admin,errors}` |
@@ -143,12 +142,11 @@ php artisan basmah:purge-demo
 - **CSRF** على كل النماذج، و**تحقق مزدوج** (عميل + خادم) مع رسائل عربية.
 - **SQL Injection:** Eloquent مع ربط المعاملات، وتهريب `%` و `_` في البحث.
 - **XSS:** كل المخرجات عبر `{{ }}`، و`strip_tags` على المدخلات، وشاشة العرض تبني المحتوى بـ `textContent`، و CSP صارم في الإنتاج (`script-src 'self'`، بلا سكربتات مضمّنة).
-- **الصور:** التحقق من الامتداد وMIME والتوقيع الحقيقي والأبعاد والحجم (3MB)، ثم **إعادة ترميز كاملة** عبر GD (تُزال بيانات EXIF والموقع الجغرافي وأي حمولة مخفية)، وقص مربع 600px، واسم عشوائي، وتخزين خارج `public`.
 - **تحديد المعدل:** 3 مشاركات لكل جلسة كل 10 دقائق، و40 لكل IP في الدقيقة (حد واسع لأن شبكة الجامعة قد تجمع المنسوبين خلف IP واحد)، و5 محاولات دخول في الدقيقة.
 - **مصيدة** للبرامج الآلية (حقل مخفي).
 - **لوحة التحكم:** مصادقة + تحقق من `is_admin` (غير قابل للتعبئة الجماعية) + `noindex`.
 - **CSV:** حماية من حقن الصيغ في Excel، مع BOM للعربية.
-- **الخصوصية:** لا يُحفظ IP ولا بريد ولا رقم وظيفي. تُحفظ لحظة الموافقة (`consented_at`). الصورة تحتاج موافقة منفصلة. لا يظهر شيء للعامة قبل الاعتماد.
+- **الخصوصية:** لا يُحفظ IP ولا بريد ولا رقم وظيفي. تُحفظ لحظة الموافقة (`consented_at`). لا يظهر شيء للعامة قبل الاعتماد.
 
 ---
 

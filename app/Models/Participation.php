@@ -7,16 +7,13 @@ use App\Services\StatsService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Participation extends Model
 {
-    public const IMAGE_DISK = 'local'; // تخزين خاص؛ تُقدَّم الصور عبر MediaController فقط
-
     protected $fillable = [
         'full_name', 'audience_type', 'department', 'selected_word', 'is_custom_word', 'message',
-        'image_path', 'show_image', 'status', 'consent', 'consented_at', 'is_demo',
+        'status', 'consent', 'consented_at', 'is_demo',
     ];
 
     protected function casts(): array
@@ -24,7 +21,6 @@ class Participation extends Model
         return [
             'status' => ParticipationStatus::class,
             'consent' => 'boolean',
-            'show_image' => 'boolean',
             'is_custom_word' => 'boolean',
             'is_demo' => 'boolean',
             'consented_at' => 'datetime',
@@ -35,12 +31,7 @@ class Participation extends Model
     protected static function booted(): void
     {
         static::saved(fn () => StatsService::flush());
-        static::deleted(function (Participation $p) {
-            if ($p->image_path) {
-                Storage::disk(self::IMAGE_DISK)->delete($p->image_path);
-            }
-            StatsService::flush();
-        });
+        static::deleted(fn () => StatsService::flush());
     }
 
     /** المشاركات المسموح بعرضها للعامة: معتمدة + موافقة صريحة */
@@ -65,23 +56,6 @@ class Participation extends Model
     public function isPublic(): bool
     {
         return $this->status === ParticipationStatus::Approved && $this->consent;
-    }
-
-    public function hasPublicImage(): bool
-    {
-        return $this->isPublic() && $this->show_image && $this->image_path;
-    }
-
-    public function publicImageUrl(): ?string
-    {
-        return $this->hasPublicImage()
-            ? route('media.show', ['participation' => $this->id, 'v' => $this->updated_at?->timestamp])
-            : null;
-    }
-
-    public function adminImageUrl(): ?string
-    {
-        return $this->image_path ? route('admin.media', $this) : null;
     }
 
     public function audienceLabel(): string
@@ -112,7 +86,6 @@ class Participation extends Model
             'department' => $this->department,
             'word' => $this->selected_word,
             'message' => $this->message,
-            'image' => $this->publicImageUrl(),
             'initials' => $this->initials(),
             'recent' => $this->isRecent(),
         ];

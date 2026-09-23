@@ -7,7 +7,7 @@
   <article class="share-card">
     <div class="flex items-center gap-4">
       <span class="avatar avatar-lg">
-        @if($p->image_path)<img src="{{ $p->adminImageUrl() }}" alt="صورة {{ $p->full_name }}">@else<span aria-hidden="true">{{ $p->initials() }}</span>@endif
+        <span aria-hidden="true">{{ $p->initials() }}</span>
       </span>
       <div>
         <h1 class="text-2xl font-bold">{{ $p->full_name }}</h1>
@@ -22,7 +22,6 @@
     <p>الحالة: <span class="badge badge--{{ $p->status->tone() }}">{{ $p->status->label() }}</span> @if($p->is_demo)<span class="badge badge--demo">تجريبية</span>@endif</p>
     <p>تاريخ الإرسال: {{ $p->created_at->timezone(config('app.timezone'))->format('Y/m/d H:i') }}</p>
     <p>الموافقة على العرض: {{ $p->consent ? 'نعم' : 'لا' }}@if($p->consented_at) ({{ $p->consented_at->timezone(config('app.timezone'))->format('Y/m/d H:i') }})@endif</p>
-    <p>الموافقة على عرض الصورة: {{ $p->image_path ? ($p->show_image ? 'نعم' : 'لا') : 'لا توجد صورة' }}</p>
     @if($p->reviewed_at)<p>آخر مراجعة: {{ $p->reviewer?->name ?? '—' }}، {{ $p->reviewed_at->timezone(config('app.timezone'))->format('Y/m/d H:i') }}</p>@endif
 
     <div class="flex flex-wrap gap-2 mt-3">

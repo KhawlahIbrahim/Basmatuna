@@ -51,12 +51,6 @@ return [
     'message_min' => 5,
     'name_max' => 80,
 
-    'photo' => [
-        'max_kb' => 10240,
-        'output_size' => 600,      // صورة مربعة 600×600 بعد المعالجة
-        'mimes' => ['image/jpeg', 'image/png', 'image/webp'],
-    ],
-
     'display' => [
         'intervals' => [5, 8, 10],
         'default_interval' => 8,

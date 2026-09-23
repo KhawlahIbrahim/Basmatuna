@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\ParticipationController as AdminParticipationCont
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ParticipationController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,9 +21,6 @@ Route::get('/explore', ExploreController::class)->name('explore');
 
 Route::get('/display', [DisplayController::class, 'show'])->name('display');
 Route::get('/display/feed', [DisplayController::class, 'feed'])->middleware('throttle:feed')->name('display.feed');
-
-Route::get('/media/{participation}', [MediaController::class, 'show'])
-    ->whereNumber('participation')->name('media.show');
 
 // ── لوحة التحكم ────────────────────────────────────────────
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -43,7 +39,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/participations/{participation}', [AdminParticipationController::class, 'show'])->name('participations.show');
         Route::patch('/participations/{participation}/status', [AdminParticipationController::class, 'updateStatus'])->name('participations.status');
         Route::delete('/participations/{participation}', [AdminParticipationController::class, 'destroy'])->name('participations.destroy');
-
-        Route::get('/media/{participation}', [MediaController::class, 'admin'])->name('media');
     });
 });

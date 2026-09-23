@@ -41,7 +41,6 @@
 .d-card__kicker { margin-top: calc(var(--u) * .8); display: inline-block; font-size: calc(var(--u) * 1); font-weight: 600; color: var(--national-green); background: var(--national-soft); padding: calc(var(--u) * .25) calc(var(--u) * 1); border-radius: 999px; }
 .d-card__person { display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 1.1); margin-top: calc(var(--u) * 1.8); }
 .d-card__avatar { width: calc(var(--u) * 4.4); height: calc(var(--u) * 4.4); border-radius: 50%; overflow: hidden; background: var(--primary-soft); color: var(--primary-strong); display: grid; place-items: center; font-weight: 700; font-size: calc(var(--u) * 1.5); flex: none; }
-.d-card__avatar img { width: 100%; height: 100%; object-fit: cover; }
 .d-card__name { font-size: calc(var(--u) * 2.4); font-weight: 700; line-height: 1.25; text-align: start; }
 .d-card__dept { font-size: calc(var(--u) * 1.25); color: var(--muted-color); text-align: start; }
 .d-card__word { margin-top: calc(var(--u) * 1.8); font-size: calc(var(--u) * 1.5); font-weight: 700; color: var(--primary-color); }

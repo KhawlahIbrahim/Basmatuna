@@ -1,6 +1,6 @@
 {
-  "_field-DylKaiV8.js": {
-    "file": "assets/field-DylKaiV8.js",
+  "_field-qlUm52mF.js": {
+    "file": "assets/field-qlUm52mF.js",
     "name": "field",
     "imports": [
       "resources/js/app.js"
@@ -55,7 +55,7 @@
     "src": "node_modules/@fontsource/ibm-plex-sans-arabic/files/ibm-plex-sans-arabic-latin-600-normal.woff2"
   },
   "resources/css/app.css": {
-    "file": "assets/app-DDx0kFgT.css",
+    "file": "assets/app-w4Jr2gem.css",
     "name": "app",
     "names": [
       "app.css"
@@ -78,7 +78,7 @@
     ]
   },
   "resources/css/display.css": {
-    "file": "assets/display-DiM0GDR5.css",
+    "file": "assets/display-DWbmXhYN.css",
     "name": "display",
     "names": [
       "display.css"
@@ -87,7 +87,7 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-C5NCR2da.js",
+    "file": "assets/app-Dvp6XycX.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -107,16 +107,16 @@
     "isDynamicEntry": true
   },
   "resources/js/pages/display.js": {
-    "file": "assets/display-CQvEtpU8.js",
+    "file": "assets/display-4DycxQ2Q.js",
     "name": "display",
     "src": "resources/js/pages/display.js",
     "isDynamicEntry": true,
     "imports": [
-      "_field-DylKaiV8.js"
+      "_field-qlUm52mF.js"
     ]
   },
   "resources/js/pages/explore.js": {
-    "file": "assets/explore-C9uCpwE9.js",
+    "file": "assets/explore-B2nY9UZd.js",
     "name": "explore",
     "src": "resources/js/pages/explore.js",
     "isDynamicEntry": true,
@@ -125,22 +125,22 @@
     ]
   },
   "resources/js/pages/home.js": {
-    "file": "assets/home-CB12Qc8q.js",
+    "file": "assets/home-CKT8kbdM.js",
     "name": "home",
     "src": "resources/js/pages/home.js",
     "isDynamicEntry": true,
     "imports": [
-      "_field-DylKaiV8.js"
+      "_field-qlUm52mF.js"
     ]
   },
   "resources/js/pages/participate.js": {
-    "file": "assets/participate-BkjQIQuR.js",
+    "file": "assets/participate-CnNfgm23.js",
     "name": "participate",
     "src": "resources/js/pages/participate.js",
     "isDynamicEntry": true
   },
   "resources/js/pages/success.js": {
-    "file": "assets/success-qtwdcCRG.js",
+    "file": "assets/success-BUEvHnL4.js",
     "name": "success",
     "src": "resources/js/pages/success.js",
     "isDynamicEntry": true,

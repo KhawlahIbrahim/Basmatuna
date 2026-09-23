@@ -29,7 +29,7 @@
         </div>
       @endif
 
-      <form method="POST" action="{{ route('participate.store') }}" enctype="multipart/form-data"
+      <form method="POST" action="{{ route('participate.store') }}"
             class="panel p-6 sm:p-9" novalidate data-participate-form>
         @csrf
         {{-- مصيدة للبرامج الآلية --}}
@@ -105,29 +105,6 @@
                     minlength="{{ config('basmah.message_min') }}" maxlength="{{ config('basmah.message_max') }}"
                     placeholder="السعودية بالنسبة لي..." aria-describedby="message_err">{{ old('message') }}</textarea>
           <p class="error" id="message_err" data-error-for="message">@error('message'){{ $message }}@enderror</p>
-        </div>
-
-        <div class="field">
-          <span class="label" id="photo_label">صورة شخصية <span class="text-muted font-normal text-sm">(اختيارية)</span></span>
-          <div class="upload">
-            <div class="upload__preview" data-photo-preview>
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="9" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-            </div>
-            <div class="grid gap-2">
-              <div class="flex flex-wrap gap-2">
-                <label for="photo" class="btn btn-outline btn-sm cursor-pointer">اختر صورة</label>
-                <button type="button" class="btn btn-ghost btn-sm" data-photo-clear hidden>إزالة</button>
-              </div>
-              <input id="photo" name="photo" type="file" accept="image/*" class="sr-only" aria-labelledby="photo_label" aria-describedby="photo_hint photo_err">
-              <p class="hint" id="photo_hint">أي صورة من جوالك، وسنجهّزها تلقائيًا.</p>
-              <p class="hint" data-photo-processing hidden>جارٍ تجهيز الصورة...</p>
-            </div>
-          </div>
-          <label class="check mt-3" data-photo-consent hidden>
-            <input type="checkbox" name="show_image" value="1" @checked(old('show_image'))>
-            <span class="text-sm">أوافق على عرض صورتي مع مشاركتي.</span>
-          </label>
-          <p class="error" id="photo_err" data-error-for="photo">@error('photo'){{ $message }}@enderror</p>
         </div>
 
         <hr class="my-8 border-line">

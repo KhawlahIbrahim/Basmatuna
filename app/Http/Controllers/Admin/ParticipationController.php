@@ -77,7 +77,7 @@ class ParticipationController extends Controller
     public function destroy(Participation $participation): RedirectResponse
     {
         $name = $participation->full_name;
-        $participation->delete(); // يحذف الصورة تلقائيًا (Model::deleted)
+        $participation->delete();
 
         return redirect()->route('admin.participations.index')->with('status', 'تم حذف مشاركة «'.$name.'».');
     }
@@ -89,7 +89,7 @@ class ParticipationController extends Controller
         return response()->streamDownload(function () {
             $out = fopen('php://output', 'w');
             fwrite($out, "\xEF\xBB\xBF"); // BOM ليقرأ Excel العربية بشكل صحيح
-            fputcsv($out, ['#', 'الاسم', 'القسم', 'الكلمة', 'العبارة', 'التاريخ', 'الحالة', 'صورة', 'تجريبية']);
+            fputcsv($out, ['#', 'الاسم', 'القسم', 'الكلمة', 'العبارة', 'التاريخ', 'الحالة', 'تجريبية']);
 
             Participation::query()->orderBy('id')->chunkById(500, function ($rows) use ($out) {
                 foreach ($rows as $p) {
@@ -101,7 +101,6 @@ class ParticipationController extends Controller
                         $p->message,
                         $p->created_at?->timezone(config('app.timezone'))->format('Y-m-d H:i'),
                         $p->status->label(),
-                        $p->image_path ? 'نعم' : 'لا',
                         $p->is_demo ? 'نعم' : 'لا',
                     ]));
                 }

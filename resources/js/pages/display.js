@@ -123,16 +123,7 @@ export default function () {
     card.append(make('p', 'd-card__kicker', p.recent ? 'بصمة جديدة' : 'بصمة منسوب'));
 
     const person = make('div', 'd-card__person');
-    const avatar = make('span', 'd-card__avatar');
-    if (p.image) {
-      const img = new Image();
-      img.src = p.image;
-      img.alt = '';
-      img.onerror = () => { avatar.textContent = p.initials; };
-      avatar.append(img);
-    } else {
-      avatar.textContent = p.initials;
-    }
+    const avatar = make('span', 'd-card__avatar', p.initials);
     const who = make('div');
     who.append(make('h2', 'd-card__name', p.name), make('p', 'd-card__dept', p.department));
     person.append(avatar, who);

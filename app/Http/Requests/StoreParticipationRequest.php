@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
 class StoreParticipationRequest extends FormRequest
@@ -36,7 +34,6 @@ class StoreParticipationRequest extends FormRequest
     {
         $other = config('basmah.other_department');
         $otherWord = config('basmah.other_word');
-        $photo = config('basmah.photo');
         $letters = '/^[\p{Arabic}\p{Latin}\s\.\-\'’ـ]+$/u';
 
         return [
@@ -47,14 +44,6 @@ class StoreParticipationRequest extends FormRequest
             'selected_word' => ['required', 'string', Rule::in([...config('basmah.words'), $otherWord])],
             'other_word' => ['nullable', 'required_if:selected_word,'.$otherWord, 'string', 'min:2', 'max:'.config('basmah.custom_word_max'), 'regex:/^[\p{Arabic}\s]+$/u'],
             'message' => ['required', 'string', 'min:'.config('basmah.message_min'), 'max:'.config('basmah.message_max')],
-            'photo' => [
-                'nullable', 'file', 'image',
-                'mimes:jpg,jpeg,png,webp',
-                'mimetypes:'.implode(',', $photo['mimes']),
-                'max:'.$photo['max_kb'],
-                'dimensions:min_width=120,min_height=120,max_width=8000,max_height=8000',
-            ],
-            'show_image' => ['nullable', 'boolean'],
             'consent' => ['accepted'],
             'website' => ['nullable', 'max:0'], // مصيدة للبرامج الآلية (حقل مخفي)
         ];
@@ -82,31 +71,9 @@ class StoreParticipationRequest extends FormRequest
             'message.required' => 'اكتب عبارتك.',
             'message.min' => 'العبارة قصيرة جدًا.',
             'message.max' => 'العبارة أطول من :max حرفًا.',
-            'photo.image' => 'تعذّر رفع الصورة. جرّب صورة أخرى.',
-            'photo.mimes' => 'تعذّر رفع الصورة. جرّب صورة أخرى.',
-            'photo.mimetypes' => 'تعذّر رفع الصورة. جرّب صورة أخرى.',
-            'photo.max' => 'تعذّر رفع الصورة. جرّب صورة أخرى.',
-            'photo.dimensions' => 'تعذّر رفع الصورة. جرّب صورة أخرى.',
-            'photo.uploaded' => 'تعذّر رفع الصورة. جرّب صورة أخرى.',
             'consent.accepted' => 'يلزم الموافقة على عرض مشاركتك قبل الإرسال.',
             'website.max' => 'تعذّر إرسال النموذج.',
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        if ($validator->errors()->has('photo') && ($file = $this->file('photo'))) {
-            Log::warning('Participation photo failed validation', [
-                'size' => $file->getSize(),
-                'mime_type' => rescue(fn () => $file->getMimeType(), null, report: false),
-                'client_mime_type' => $file->getClientMimeType(),
-                'error' => $file->getError(),
-                'upload_max_filesize' => ini_get('upload_max_filesize'),
-                'post_max_size' => ini_get('post_max_size'),
-            ]);
-        }
-
-        parent::failedValidation($validator);
     }
 
     /** الكلمة النهائية التي تُحفظ */

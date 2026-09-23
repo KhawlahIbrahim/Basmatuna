@@ -42,7 +42,6 @@
         <th scope="col">القسم</th>
         <th scope="col">الكلمة</th>
         <th scope="col">العبارة</th>
-        <th scope="col">الصورة</th>
         <th scope="col">التاريخ</th>
         <th scope="col">الحالة</th>
         <th scope="col"><span class="sr-only">إجراءات</span></th>
@@ -57,14 +56,6 @@
           <td>{{ $p->department }}</td>
           <td><b class="text-primary">{{ $p->selected_word }}</b></td>
           <td class="max-w-[280px]">{{ $p->shortMessage(70) }}</td>
-          <td>
-            @if($p->image_path)
-              <img src="{{ $p->adminImageUrl() }}" alt="صورة {{ $p->full_name }}" width="40" height="40" class="w-10 h-10 rounded-full object-cover" loading="lazy">
-              @unless($p->show_image)<span class="block text-xs text-muted">غير موافق على عرضها</span>@endunless
-            @else
-              <span class="text-muted">—</span>
-            @endif
-          </td>
           <td class="whitespace-nowrap text-muted">{{ $p->created_at->timezone(config('app.timezone'))->format('Y/m/d H:i') }}</td>
           <td><span class="badge badge--{{ $p->status->tone() }}">{{ $p->status->label() }}</span></td>
           <td>
@@ -86,7 +77,7 @@
           </td>
         </tr>
       @empty
-        <tr><td colspan="10" class="text-center text-muted py-10">لا توجد مشاركات.</td></tr>
+        <tr><td colspan="9" class="text-center text-muted py-10">لا توجد مشاركات.</td></tr>
       @endforelse
     </tbody>
   </table>
