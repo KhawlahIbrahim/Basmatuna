@@ -35,7 +35,7 @@ class ParticipationController extends Controller
             } catch (\Throwable $e) {
                 Log::warning('Participation photo rejected', ['reason' => $e->getMessage()]);
 
-                return back()->withInput()->withErrors(['photo' => 'تعذّرت معالجة الصورة. جرّب صورة أخرى بصيغة JPG أو PNG.']);
+                return back()->withInput()->withErrors(['photo' => 'تعذّر رفع الصورة. جرّب صورة أخرى.']);
             }
         }
 

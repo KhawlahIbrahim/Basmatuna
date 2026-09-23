@@ -118,8 +118,9 @@
                 <label for="photo" class="btn btn-outline btn-sm cursor-pointer">اختر صورة</label>
                 <button type="button" class="btn btn-ghost btn-sm" data-photo-clear hidden>إزالة</button>
               </div>
-              <input id="photo" name="photo" type="file" accept="image/jpeg,image/png,image/webp" class="sr-only" aria-labelledby="photo_label" aria-describedby="photo_hint photo_err">
-              <p class="hint" id="photo_hint">JPG أو PNG أو WEBP، حتى 3 ميجابايت.</p>
+              <input id="photo" name="photo" type="file" accept="image/*" class="sr-only" aria-labelledby="photo_label" aria-describedby="photo_hint photo_err">
+              <p class="hint" id="photo_hint">أي صورة من جوالك، وسنجهّزها تلقائيًا.</p>
+              <p class="hint" data-photo-processing hidden>جارٍ تجهيز الصورة...</p>
             </div>
           </div>
           <label class="check mt-3" data-photo-consent hidden>

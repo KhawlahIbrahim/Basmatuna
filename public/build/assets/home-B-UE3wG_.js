@@ -1,1 +1,0 @@
-import{t as e}from"./field-BQrAEiKh.js";function t(){let t=document.querySelector(`[data-field]`);t&&e(t,{density:window.innerWidth<600?.7:1})}export{t as default};

@@ -52,7 +52,7 @@ return [
     'name_max' => 80,
 
     'photo' => [
-        'max_kb' => 3072,
+        'max_kb' => 10240,
         'output_size' => 600,      // صورة مربعة 600×600 بعد المعالجة
         'mimes' => ['image/jpeg', 'image/png', 'image/webp'],
     ],

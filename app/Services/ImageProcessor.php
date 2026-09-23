@@ -20,6 +20,8 @@ class ImageProcessor
 
     public function store(UploadedFile $file): string
     {
+        ini_set('memory_limit', '256M');
+
         if (! extension_loaded('gd')) {
             throw new RuntimeException('GD extension is required.');
         }
