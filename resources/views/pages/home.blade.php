@@ -18,7 +18,7 @@
         <p class="joined">ترك <b>{{ number_format($participants) }}</b> من منسوبي وطلبة الكلية بصمتهم حتى الآن.</p>
       @endif
 
-      <p class="credit">مقدمة من <strong>{{ config('basmah.presenter') }}</strong></p>
+      <p class="credit">مقدمة من <strong>{{ config('basmah.presenter_name') }}</strong><br>{{ config('basmah.presenter') }}</p>
     </div>
 
     <div class="hero__field" aria-hidden="true">

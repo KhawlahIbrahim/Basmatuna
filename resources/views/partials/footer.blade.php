@@ -5,6 +5,6 @@
       <p class="text-xl font-bold">{{ config('basmah.title') }}</p>
       <p class="text-muted">{{ config('basmah.occasion') }}، {{ config('basmah.college') }}</p>
     </div>
-    <p class="text-sm text-muted leading-relaxed">مقدمة من<br><strong class="text-ink text-base font-semibold">{{ config('basmah.presenter') }}</strong></p>
+    <p class="text-sm text-muted leading-relaxed">مقدمة من<br><strong class="text-ink text-base font-semibold">{{ config('basmah.presenter_name') }}</strong><br>{{ config('basmah.presenter') }}</p>
   </div>
 </footer>
